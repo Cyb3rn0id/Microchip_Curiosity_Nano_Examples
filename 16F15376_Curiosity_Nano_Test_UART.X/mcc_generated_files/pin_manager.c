@@ -48,16 +48,12 @@
 
 #include "pin_manager.h"
 
-
-
-
-
 void PIN_MANAGER_Initialize(void)
 {
     /**
     LATx registers
     */
-    LATE = 0x00;
+    LATE = 0x01;
     LATD = 0x00;
     LATA = 0x00;
     LATB = 0x00;
@@ -75,7 +71,7 @@ void PIN_MANAGER_Initialize(void)
     /**
     ANSELx registers
     */
-    ANSELD = 0xFD;
+    ANSELD = 0xFE;
     ANSELC = 0xFF;
     ANSELB = 0xFF;
     ANSELE = 0x02;
@@ -116,16 +112,8 @@ void PIN_MANAGER_Initialize(void)
     INLVLC = 0xFF;
     INLVLD = 0xFF;
     INLVLE = 0x0F;
-
-
-
-
-
-   
-    
 	
     RD0PPS = 0x11;   //RD0->EUSART2:TX2;    
-    RX2DTPPS = 0x19;   //RD1->EUSART2:RX2;    
 }
   
 void PIN_MANAGER_IOC(void)
