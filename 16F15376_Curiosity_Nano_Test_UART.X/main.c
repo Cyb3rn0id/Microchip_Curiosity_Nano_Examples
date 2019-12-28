@@ -81,8 +81,6 @@ void main(void)
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
     
-    LED0_SetHigh(); // aggiunto: led spento all'avvio
-    
     while (1)
     {
         // Add your application code
@@ -93,10 +91,10 @@ void main(void)
             if (!SW0_GetValue()) // controllo che il pulsante negli 80mS sia ancora premuto
                 {
                 printf("BUTTON PRESSED\r"); // messaggio su seriale   
-                LED0_SetHigh(); // spengo il led
                 while(!SW0_GetValue()); // rimango bloccato finchè non si rilascia il pulsante
                 __delay_ms(100); // ulteriore ritardo per ricominciare il ciclo
                 }
+        LED0_SetHigh(); // spengo il led
         }
     } // while(1)
 }
