@@ -6,6 +6,6 @@ EUSART2 will communicate through debugger USB CDC since RD0 is used
 
 Baudrate: 9600
 
-Programm will send a message everytime SW0 (RE2) is pressed, LED0 (RE0) will light up.
+Program will send a message everytime SW0 (RE2) is pressed, LED0 (RE0) will light up.
 
 Releasing button, cycle will restart.
