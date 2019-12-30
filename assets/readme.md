@@ -4,4 +4,6 @@ For more updated versions, please visit Microchip Website:
 - [PIC16F15376 Curiosity Nano](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM164148)
   
 Note:  
-"PIC16F18446 MPLAB Xpress" was the old name for the actual "PIC16F18446 Curiosity Nano". When you connect the old revisions, firmware will be updated. I've put the old documents for this board only for historical purposes.
+"MPLAB Xpress PIC16F18446" was the old name for the actual "PIC16F18446 Curiosity Nano". 
+When you connect the old revisions board, firmware will be updated at first programming. 
+I've put the old documents for this board only for historical purposes since I've the Rev.1 Board.
