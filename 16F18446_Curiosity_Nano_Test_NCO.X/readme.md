@@ -1,10 +1,10 @@
 # Numerically Controlled Oscillator demo
 
-### What this example do
+### What this example does
 - NCO OUT on RA5 (Start Freq.: 1007Hz, 50% Duty Cycle)  
 - FOSC/4 on RA4 (8MHz)
 
-By pressing SW0, frequency will increment.  You need an oscilloscope of a Frequency counter to see it.
+By pressing SW0 on the board, frequency will increment.  You need an oscilloscope of a Frequency counter to see it.
 
 NCO stands for the Numerically Controlled Oscillator.  
 In this example is used in FDC mode (Fixed Duty Cycle). In this mode, incrementing the INC registers, frequency output will rise.  
