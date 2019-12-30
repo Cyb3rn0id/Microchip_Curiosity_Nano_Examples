@@ -28,4 +28,6 @@ PWM Frequency will be determined by Timer 2 settings
 - System Clock: 32MHz (no PLL)
 
 Watch video on youtube: 
-[![Example Video of this code](https://img.youtube.com/vi/7wrxOczbIB0/maxresdefault.jpg)](https://youtu.be/7wrxOczbIB0)
+[![Example Video of this code](https://img.youtube.com/vi/7wrxOczbIB0/maxresdefault.jpg)](https://youtu.be/7wrxOczbIB0)  
+
+There is also an example for [NCO on the PIC16F15376 Curiosity Nano](/16F15376_Curiosity_Nano_NCO_1MHz.X/)
