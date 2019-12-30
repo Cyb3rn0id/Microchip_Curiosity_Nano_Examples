@@ -1,18 +1,19 @@
-System Clock: 32MHz internal  
-PWM OUT on RA5 (Freq.: 1MHz, 50% Duty Cycle)  
-FOSC/4 on RA4 (8MHz)  
-  
-Notes:  
-Used CCP1 module+Timer 2  
+# Pulse Width Modulation Demo
 
-CCP1 Settings:
+### What this example does:
+- PWM OUT on RA5 (Freq.: 1MHz, 50% Duty Cycle)
+- FOSC/4 on RA4 (8MHz)  
+
+This example shows how to use PWM. CCP1 module is used joined with Timer2
+
+### CCP1 Settings:
 - Enable CCP
 - CCP Mode: PWM
 - Timer used: Timer 2
 - Duty Cycle: 50%  
-PWM Frequency will be determined by Timer 2 settings  
+Note: PWM Frequency will be determined by Timer 2 settings  
 
-Timer 2 settings:  
+### Timer 2 settings:  
 - Enable Timer
 - Control Mode: Roll over pulse
 - Start-Reset: Software
@@ -23,6 +24,7 @@ Timer 2 settings:
 
 Other settings:
 - RA4 locked on OSC-CLKOUT output in the Pin Manager grid.  
+- System clock: 32MHz
 
 Oscilloscope image:  
 ![Oscilloscope image - 1MHz on RA5, FOSC/4 on RA4](../assets/PIC16F18446_PWM_example.jpg)  
