@@ -2,7 +2,8 @@
 
 ### What this example do
 - NCO OUT on RA5 (Start Freq.: 1007Hz, 50% Duty Cycle)  
-- FOSC/4 on RA4 (8MHz).  
+- FOSC/4 on RA4 (8MHz)
+
 By pressing SW0, frequency will increment.  You need an oscilloscope of a Frequency counter to see it.
 
 NCO stands for the Numerically Controlled Oscillator.  
