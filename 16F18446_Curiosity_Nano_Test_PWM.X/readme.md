@@ -14,7 +14,7 @@ PWM Frequency will be determined by Timer 2 settings
 
 Timer 2 settings:  
 - Enable Timer
-- Control Mode: Roll over puls
+- Control Mode: Roll over pulse
 - Start-Reset: Software
 - Clock Source: FOSC/4
 - Prescaler: 1:1
