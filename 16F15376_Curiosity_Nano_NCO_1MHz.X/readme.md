@@ -4,7 +4,7 @@
 - 1MHz Square wave out on RD0 (50% fixed Duty Cycle)
 - LED0 flashing every 500mS on interrupt
 
-This example shows how to use NCO. For further informations see NCO example for PIC16F18446
+This example shows how to use NCO. For further informations see [NCO example for PIC16F18446](../16F18446_Curiosity_Nano_Test_NCO.X/)
 
 ### NCO1 Settings:
 - Enable NCO
@@ -29,4 +29,4 @@ Other settings:
 - System clock: 16MHz
 
 Oscilloscope image:  
-![Oscilloscope image - 1MHz on RD0](../assets/PIC16F15376_NCO_example) 
+![Oscilloscope image - 1MHz on RD0](../assets/PIC16F15376_NCO_example.jpg) 
