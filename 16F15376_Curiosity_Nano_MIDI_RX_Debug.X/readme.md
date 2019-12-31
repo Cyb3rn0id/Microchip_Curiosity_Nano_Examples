@@ -29,7 +29,7 @@
 - NO interrupts
 - Redirect STDIO to USART
 
-Other settings:
+### Other settings:
 - RB5 locked on EUSART1-RX1 (output)  (midi RX)
 - RD0 locked on EUSART2-TX2 (input)   (CDC TX)
 - RA0 locked on NCO1-NCO (output)     (1MHz square wave)
