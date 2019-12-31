@@ -13,11 +13,13 @@ By default Curiosity nano runs at 3.3V when powered from USB: there is a softwar
 - write "5" in the blank field "Voltage level"
 - press OK   
 
-The project property will be changed and will be active the next time you'll program the board. Voltage change is permanent, so there is no need to keep this setting every-time for every project: be careful. This setting, obviously, only affect the V Target when you power the board from USB. Following picture illustrates where this setting is located:    
+The project property will be changed and will be active the next time you'll program the board. Voltage change is permanent, so there is no need to keep this setting every-time for every project: be careful. This setting, obviously, only affect the V Target when you power the board from USB. Following picture illustrates where this setting is located:   
+
 ![VTG modification](assets/changing_Vtarget.png)    
 
 #### Powering from external 
-If you want to power the board from the external instead of USB, you must tie to GND the pin "VOFF": it's the second pin on the right, starting from top, having the USB connector on top: this will disable the on board regulator. Now you can power the board from the pin "VTG": it's the sixth pin on the right, starting from top, having the USB connector on top. The voltage you apply will not be affected by the modification explained above.  
+If you want to power the board from the external instead of USB, you must tie to GND the pin "VOFF": it's the second pin on the right, starting from top, having the USB connector on top: this will disable the on board regulator. Now you can power the board from the pin "VTG": it's the sixth pin on the right, starting from top, having the USB connector on top. The voltage you apply will not be affected by the modification explained above.   
+
 ![Curiosity Nano Debugger Pinout](assets/curiosity_nano_standard_debugger_pinout.png)   
 
 ### Links
