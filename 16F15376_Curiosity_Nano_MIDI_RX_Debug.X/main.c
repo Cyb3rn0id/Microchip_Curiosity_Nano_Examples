@@ -1,25 +1,16 @@
-/**
-  Generated Main Source File
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    main.c
-
-  Summary:
-    This is the main file generated using PIC10 / PIC12 / PIC16 / PIC18 MCUs
-
-  Description:
-    This header file provides implementations for driver APIs for all modules selected in the GUI.
-    Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.78
-        Device            :  PIC16F15376
-        Driver Version    :  2.00
-*/
-
 /*
-    (c) 2018 Microchip Technology Inc. and its subsidiaries. 
+    MIDI Debugger
+    Version 1.0
+    CC BY-NC-ND 4.0
+    module:      main.c
+
+    (C)2019 Bernardo Giovanni (CyB3rn0id)
+    http://www.settorezero.com
+
+
+    This work is distributed under CC BY-NC-ND 4.0
+    Please read license before use:
+    https://creativecommons.org/licenses/by-nc-nd/4.0/
     
     Subject to your compliance with these terms, you may use Microchip software and any 
     derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
