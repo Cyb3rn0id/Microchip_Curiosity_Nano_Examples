@@ -15,16 +15,18 @@
 - Is necessary set VTarget at 5V since some midi interfaces send signals at 5V and PIC port can be damaged if works at 3.3V, so in the project properties the VTG is set to 5V, for further information see [repository ReadMe](https://github.com/Cyb3rn0id/Microchip_Curiosity_Nano_Examples#running-at-5-or-33v) paragraph "Running at 3.3 or 5V"
 
 *First than connect a MIDI interface, please verify there are 5V on VTG pin after programming*   
->remember that 5V setting is permanent, so if you want to set the board to 3.3V you must change the project property
+>remember that 5V setting is *permanent*, so if you want to set the board to 3.3V again, you must change the project property
 
 ### EUSART1 settings:
 - Baudrate: 31250 (inserted manually)
 - Receive enabled, Transmit NOT enabled
-- Interrupts enabled 
+- Interrupts enabled
+- NO redirect STDIO to USART
 
 ### EUSART2 settings:  
 - Baudrate: 115200
 - Transmit enabled, Receive NOT enabled
+- NO interrupts
 - Redirect STDIO to USART
 
 Other settings:
