@@ -3,8 +3,8 @@
 *WARNING: USING THIS PROJECT V TARGET WILL BE SET TO 5V*   
 
 ### What this example does:
-- Reads incoming MIDI messages on PWM OUT on RB5 (Required a MIDI to TTL Adapter)- used EUSART1
-- Parse the MIDI messages and output sentences on USB CDC (115200,N,8,1) - EUSART 2
+- Reads incoming MIDI messages on RB5 (Required a MIDI to TTL Adapter)- used EUSART1
+- Parse the MIDI messages and output sentences on USB CDC (115200,N,8,1) - used EUSART 2
 - LED0 flashes every time a MIDI message is received on UART
 - Outputs a 1MHz square wave on RA0
 
