@@ -22,7 +22,7 @@ If you want to power the board from the external instead of USB, you must tie to
 
 ![Curiosity Nano Debugger Pinout](assets/curiosity_nano_standard_debugger_pinout.png)   
 
-#### Usage of pins  
+### Usage of certain pins  
 Following infos are for the PIC16F15376 Curiosity Nano.  
 - RCO and RC1: Normally, those pins are not routed from edge connector to PIC MCU, so if you would to use them, put a solder blob on pads on the bottom of the board
 - RB6 and RB7: Those pins are used by the debugger (DGB0 and DBG1), maybe is safe to use if you disconnect them first than programming 
