@@ -1,7 +1,7 @@
 # Microchip Curiosity Nano Examples   
 ![PIC16F15376 Curiosity Nano](assets/image.jpg)
 
-My experiments and snippets with Microchip Curiosity Nano boards.
+My experiments, snippets and documents about Microchip Curiosity Nano boards I use for my projects.
 
 ### Powering Curiosity Nano 
 #### Running at 5 or 3.3V 
@@ -18,14 +18,17 @@ The project property will be changed and will be active the next time you'll pro
 ![VTG modification](assets/changing_Vtarget.png)    
 
 #### Powering from external 
-If you want to power the board from the external instead of USB, you must tie to GND the pin "VOFF": it's the second pin on the right, starting from top, having the USB connector on top: this will disable the on board regulator. Now you can power the board from the pin "VTG": it's the sixth pin on the right, starting from top, having the USB connector on top. The voltage you apply will not be affected by the modification explained above.   
+If you want to power the board from the external instead of USB, you must tie to GND the pin "VOFF": it's the second pin on the right, starting from top, having the USB connector on top: this will disable the on board regulator. After you've tied VOFF to GND you can power the board on the pin "VTG": it's the sixth pin on the right, starting from top, having the USB connector on top. The voltage you apply will not be affected by the modification explained above. 5V is the maximum.   
 
 ![Curiosity Nano Debugger Pinout](assets/curiosity_nano_standard_debugger_pinout.png)   
 
 ### Usage of certain pins  
 Following infos are for the PIC16F15376 Curiosity Nano.  
-- RCO and RC1: Normally, those pins are not routed from edge connector to PIC MCU, so if you would to use them, put a solder blob on pads on the bottom of the board
-- RB6 and RB7: Those pins are used by the debugger (DGB0 and DBG1), maybe is safe to use if you disconnect them first than programming 
+- RCO and RC1: Normally, those pins are not routed from edge connector to PIC MCU, so if you would to use them, put a solder blob on pads on the bottom of the board marked as RC0 - RC1. They're not connected since you can choose to use them for the Secondary Oscillator (SOSC)soldering a 32768Hz Crystal on top.
+- RB6 and RB7: Those pins are not shown on the silkscreen. They are used by the debugger (DBG1/ICSPCLK and DBG0/ICSPDAT respectively), maybe is safe to use if you disconnect them first than programming
+- RD0 and RD1: are shared with USB CDC and used by debugger, they appears on the silkscreen
+- RE2: is connected to DGB2 Debugger pin and shared with SW0. "RE2" marking does not appear on silkscreen
+- RE3: this pin is MCLR and is connected with DBG3 debugger pin.  "RE3" marking does not appear on silkscreen
 
 ### Links
 - My Simple (italian) [tutorial about Curiosity Nano and MPLAB Code Configurator](https://www.settorezero.com/wordpress/curiosity-nano-code-configurator-per-entrare-nel-mondo-dei-microcontrollori-pic-senza-sforzo-e-in-economia/)
