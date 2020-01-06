@@ -1,7 +1,7 @@
 # Alphanumeric LCD (HD44780) Demo
 
 ### What this example does:
-- Write strings on a HD44780-based Display
+- Write strings on a HD44780-based Display. The library allows to write signed and unsigned numers up to 16bit, strings, single chars and to personalize 6 chars. For other usage you can see my [previous example for PIC16F18877](https://github.com/Cyb3rn0id/Settorezero_Sources/tree/master/XC/Examples/PIC16F887/C_settorezero_es04_Display_HD44780.X)
 
 ### Notes:
 - SW0 is not configured
