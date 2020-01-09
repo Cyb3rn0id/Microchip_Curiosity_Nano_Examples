@@ -10,12 +10,12 @@
 - Library is tested on PIC16F15376 Curiosity Nano up to 32MHz, but does not work @32MHz on other PIC MCUs (such as the PIC16F18877)
 
 ### System settings:
-- systme clock: 32MHz
+- system clock: 32MHz
 
 ### Connections
 Please note: DATA and RS must be on the same port bank! In the example are connected to D bank. Enable and Read/write can be on different port banks. Remember this if you want to change ports
 
-| LCD pin | PIC16F15376 Curiority Nano pin |
+| LCD pin | PIC16F15376 Curiosity Nano pin |
 |:--------|:-------------------------------|
 |RS       |RD3                             |
 |RW       |RB5                             |
