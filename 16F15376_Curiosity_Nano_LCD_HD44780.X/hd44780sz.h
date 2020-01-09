@@ -6,8 +6,8 @@
  * in 4bits mode
  *
  * Module:              hd44780sz.h
- * Version:             1.01
- * Release date:        06/01/2020
+ * Version:             1.02
+ * Release date:        08/01/2020
  * Dependencies:        none
  * Compiler:            Microchip XC family
  * MCU:                 PICmicro
