@@ -1,7 +1,7 @@
 # Square Wave generator
 
 ### What this example does:
-- Generates square waves with 50% Duty Cycle from 1Hz to 16MHz with 1H step
+- Generates square waves with 50% Duty Cycle from 1Hz to 16MHz with 1Hz step using the NCO (Numerically Controlled Oscillator) in FDC (Fixed Duty Cycle) mode.
 
 ### Notes:
 - SW0 is used for changing frequency step per encoder tick
@@ -14,6 +14,8 @@
 
 ### System settings:
 - system clock: 32MHz
+- Interrupt on Timer0 every 1mS
+- Interrupt on RC2 and RC3 for any state change
 
 ### Connections
 Please note: LCD DATA and RS must be on the same port bank! In the example are connected to D bank. Enable and Read/write can be on different port banks. Remember this if you want to change ports
