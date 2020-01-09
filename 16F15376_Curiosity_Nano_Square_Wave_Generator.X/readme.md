@@ -1,7 +1,7 @@
 # Square Wave generator
 
 ### What this example does:
-- Generates square waves with 50% Duty Cycle from 1Hz to 16MHz with 1Hz step using the NCO (Numerically Controlled Oscillator) in FDC (Fixed Duty Cycle) mode.
+- Generates square waves with 50% Duty Cycle from 1Hz to 16MHz with 1Hz step using the NCO (Numerically Controlled Oscillator) in FDC (Fixed Duty Cycle) mode. Here is a picture on my [Twitter](https://twitter.com/settorezero/status/1215222093505351680)
 
 ### Notes:
 - SW0 is used for changing frequency step per encoder tick
