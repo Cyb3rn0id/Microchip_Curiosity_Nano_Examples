@@ -48,6 +48,10 @@
  *
  * -----------------------------------------------------------------------------
  * REVISION LOG
+ * 
+ * 1.02 (08-Jan-2020)
+ * -added LCDputun24 for printing unsigned values up to 24bit (16 777 215)
+ * 
  * 1.01 (06-Jan-2020)
  * -added ifndef for crystal frequency (using MCC is already declared 
  *  in device_config)
@@ -67,7 +71,7 @@
 // NOTE: this library is tested up to 32MHz on PIC16F15376
 // does not work @32MHz on PIC16F18877 (strange!)
 #ifndef _XTAL_FREQ
-#define _XTAL_FREQ 24000000
+#define _XTAL_FREQ 32000000
 #endif
 
 // display size
@@ -159,6 +163,7 @@ extern void LCDClear(void);
 extern void LCDBacklight(uint8_t backlight); //ON/OFF (ON=>pin at High level)
 extern void LCDPutch(char c);
 extern void LCDPutun(uint16_t c);
+extern void LCDPutun24(uint32_t c);
 extern void LCDPutsn(int16_t c);
 extern void LCDPuts(const char *s);
 extern void LCDCustomChar(uint8_t pos, const uint8_t *b); // pos=0 to 7
