@@ -34,3 +34,6 @@ Please note: LCD DATA and RS must be on the same port bank! In the example are c
 
 ### Display Pinout
 ![LCD Pinout](../assets/LCD_HD44780_Pinout.png)
+
+### Schematic
+![Square Wave Generator Schematic](../assets/SquareWaveGenerator_Schematic.jpg)
