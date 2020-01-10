@@ -37,3 +37,9 @@ Please note: LCD DATA and RS must be on the same port bank! In the example are c
 
 ### Schematic
 ![Square Wave Generator Schematic](../assets/SquareWaveGenerator_Schematic.jpg)
+
+### Links
+- [Article on my blog](https://www.settorezero.com/wordpress/un-generatore-di-onda-quadra-da-1hz-a-16mhz-con-un-microcontrollore-pic/)
+
+### Pictures
+![Square Wave Generator Picture](../assets/SquareWaveGenerator_PIC16F15376.jpg)
