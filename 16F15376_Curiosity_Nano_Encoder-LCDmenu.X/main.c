@@ -90,7 +90,7 @@ void Encoder_Pulse_ISR(void)
     IOCCPbits.IOCCP3 = 0;
     
     // encoder rotated clockwise (Pulse interrupt)
-    if (ENC_PUL_LAT==ENC_DIR_LAT) 
+    if (ENC_PUL_PORT==ENC_DIR_PORT) 
         {
         cnVar=0;
         if (false==EncoderState)
@@ -157,7 +157,7 @@ void Encoder_Dir_ISR(void)
     IOCCNbits.IOCCN3 = 0;
     IOCCPbits.IOCCP3 = 0;
        
-    if (ENC_PUL_LAT==ENC_DIR_LAT) // encoder rotated counter-clockwise (Pulse interrupt)
+    if (ENC_PUL_PORT==ENC_DIR_PORT) // encoder rotated counter-clockwise (Pulse interrupt)
      {
         cpVar=0;
         if (false==EncoderState)
@@ -260,7 +260,7 @@ void main(void)
     //RW=RD2
     //EN=RD3
     
-    if (ENC_PUL_LAT==ENC_DIR_LAT) EncoderState=true;
+    if (ENC_PUL_PORT==ENC_DIR_PORT) EncoderState=true;
     
     IOCCF2_SetInterruptHandler(*Encoder_Pulse_ISR);
     IOCCF3_SetInterruptHandler(*Encoder_Dir_ISR);
