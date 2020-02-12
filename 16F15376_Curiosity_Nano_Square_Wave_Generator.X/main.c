@@ -88,7 +88,7 @@ void main(void)
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
     // start encoder with current state
-    if (ENC_PUL_LAT==ENC_DIR_LAT) EncoderState=true;
+    if (ENC_PUL_PORT==ENC_DIR_PORT) EncoderState=true;
     // set interrupt handlers for MCC generated functions
     IOCCF2_SetInterruptHandler(*Encoder_Pulse_ISR);
     IOCCF3_SetInterruptHandler(*Encoder_Dir_ISR);
@@ -358,7 +358,7 @@ void Encoder_Pulse_ISR(void)
     IOCCNbits.IOCCN3 = 0;
     IOCCPbits.IOCCP3 = 0;
     // encoder turned clockwise (Pulse interrupt)
-	if (ENC_PUL_LAT==ENC_DIR_LAT) 
+	if (ENC_PUL_PORT==ENC_DIR_PORT) 
 		{
         cnVar=0;
         if (false==EncoderState)
@@ -408,7 +408,7 @@ void Encoder_Dir_ISR(void)
     IOCCNbits.IOCCN3 = 0;
     IOCCPbits.IOCCP3 = 0;
     // encoder turned counterclockwise (Direction interrupt)
-	if (ENC_PUL_LAT==ENC_DIR_LAT) 
+	if (ENC_PUL_PORT==ENC_DIR_PORT) 
 		{
         cpVar=0;
         if (false==EncoderState)
