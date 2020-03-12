@@ -1,0 +1,8 @@
+MAX7219sz PIC Lib
+(c) 2020 Giovanni Bernardo
+https://github.com/Cyb3rn0id/MAX7219sz_PIC_lib
+
+Changelog
+
+Version 1.0 - Released on 12 MAR 2020
+First release
