@@ -69,9 +69,9 @@ void main(void)
     //INTERRUPT_PeripheralInterruptDisable();
     
     //RD4-RD5-RD6-RD7 = data
-    //RS=RB4
-    //RW=RD2
-    //EN=RD3
+    //RS=RD3
+    //RW=RB5
+    //EN=RC0
     
     LCDInit();
     LCDPuts("Test HD44780");
