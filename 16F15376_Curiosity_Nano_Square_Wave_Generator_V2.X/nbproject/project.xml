@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>16F15376_Curiosity_Nano_Square_Wave_Generator</name>
+            <name>16F15376_Curiosity_Nano_Square_Wave_Generator_V2</name>
             <creation-uuid>6ef5bc4c-2567-498e-a02a-595c89bc5331</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

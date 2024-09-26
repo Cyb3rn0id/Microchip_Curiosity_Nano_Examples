@@ -60,8 +60,8 @@ void NCO1_Initialize (void)
     // Set the NCO to the options selected in the GUI
     // N1EN disabled; N1POL active_hi; N1PFM FDC_mode; 
     NCO1CON = 0x00;
-    // N1CKS MFINTOSC_31.25KHz; N1PWS 1_clk; 
-    NCO1CLK = 0x04;
+    // N1CKS MFINTOSC_31.25KHz; N1PWS 4_clk; 
+    NCO1CLK = 0x44;
     // 
     NCO1ACCU = 0x00;
     // 
@@ -69,11 +69,11 @@ void NCO1_Initialize (void)
     // 
     NCO1ACCL = 0x00;
     // 
-    NCO1INCU = 0x00;
+    NCO1INCU = 0x01;
     // 
-    NCO1INCH = 0x00;
+    NCO1INCH = 0x06;
     // 
-    NCO1INCL = 0x43;
+    NCO1INCL = 0x25;
 
     // Enable the NCO module
     NCO1CONbits.N1EN = 1;

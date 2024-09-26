@@ -1,5 +1,5 @@
 /*
- * Square Wave Generator (0-16MHz with 1Hz steps)
+ * Square Wave Generator V2 (0-16MHz with 1Hz steps)
  *
  * This was intended as an example on how to use NCO module on PIC MCUs
  * I used a PIC16F15376 Curiosity Nano board from Microchip
@@ -12,15 +12,15 @@
  * This work is distributed under a CC BY-NC-SA 4.0
  * Attribution-NonCommercial-ShareAlike 4.0 International 
  * You are free to:
- * Share ? copy and redistribute the material in any medium or format
- * Adapt ? remix, transform, and build upon the material
+ * Share & copy and redistribute the material in any medium or format
+ * Adapt & remix, transform, and build upon the material
  * Under the following terms:
- * Attribution ? You must give appropriate credit, provide a link to 
+ * Attribution : You must give appropriate credit, provide a link to 
  * the license, and indicate if changes were made. You may do so in any 
  * reasonable manner, but not in any way that suggests the licensor 
  * endorses you or your use.
- * NonCommercial ? You may not use the material for commercial purposes.
- * ShareAlike ? If you remix, transform, or build upon the material, 
+ * NonCommercial : You may not use the material for commercial purposes.
+ * ShareAlike : If you remix, transform, or build upon the material, 
  * you must distribute your contributions under the same license as the original.
  * 
  * 
@@ -39,46 +39,86 @@
  * SOFTWARE.
  */
 
+/*
+ * Here I report some findings
+ * 
+ * ADC MODULE
+ * MCC will NOT do everything for making ADC module working! Dunno if it's a bug or not...
+ * from MCC go in System Module and make those following adjustements:
+ * (1) if you want to use the FVR=>
+ * you must turn on this in the PMD0 register, FVRMD bit (turn to ENABLE(
+ * (2) Enable the ADC module in the PMD=>
+ * register PMD2, bit ADCMD (turn to enable)
+ * 
+ * MAXIMUM FREQUENCIES
+ * The minimun frequency I achieved is 0.015Hz (measured on oscilloscope) using the LFINTOSC
+ * as clock source, FDC mode, and value 1 loaded in the increment register.
+ * The maximum frequency achieved (always measured on oscilloscope)
+ * is always FOSC/2 in both modes. And this is strange!
+ * It's possible to load the maximum value of 1048575 when using
+ * low frequencies clock sources (LFINTOSC, MFINTOSC 500 or 31kHz):
+ * output on pin will be what you expect: for example with MFINTOSC at 500kHz
+ * and 1048575 loaded, you'll obtain 250kHz in FDC and 500kHz in PF.
+ * 
+ * Problems happens using FOSC or HFINTOSC. For example using 32MHz
+ * If I load the value 1048575, FDC mode, i obtain 16MHz (even if the
+ * square wave looks very weird!), but in PF mode oscilloscope can't detect
+ * any form of wave. In PF mode I have a maximum of 16MHz loading 1048575/2.
+ * It's not a problem of 32MHz: this happens even if I set 16MHz or 1MHz as FOSC:
+ * maximum I can achieve in always fosc/2 in both modes!
+ * This is weird since using MCC ad setting FOSC 32MHz, PF, it shows that 32MHz
+ * can be reached! Probably it can be reached only internally but not as pin output,
+ * anyway I remember that this weird behaviour happens also if I set the clock at 1MHz
+ * even if I use the external crystal.
+ */
+
+
 #include "mcc_generated_files/mcc.h"
 #include "hd44780sz.h"
 #pragma warning disable 520 // suppress "function not used" warnings
 
+// clock sources for the NCO module
 typedef enum
    {
    ncoclk_fosc = 0,        // 32MHz
    ncoclk_hfintosc = 1,    // 32MHz
-   ncoclk_lfintosc = 2,    // 31kHz
+   ncoclk_lfintosc = 2,    // 31000 Hz
    ncoclk_mfintosc500 = 3, // 500kHz
-   ncoclk_mfintosc32 = 4   // 31kHz
+   ncoclk_mfintosc31 = 4   // 31250 Hz
    } NCO_clock;
 
-// Variables used for encoder
+typedef enum
+   {
+   ncomode_fixed_duty=0,
+   ncomode_pulse_frequency=1
+   } NCO_mode;
+   
+// Variables used by the encoder
 #define ENCTIMERESTART  4 // ms antibounce for encoder
-#define CCOUNT 3 // number of equal ticks for giving ok
+#define CCOUNT 2 // number of equal ticks for giving ok
 uint8_t cpVar=0; // number of consecutive equal ticks for step_increment
 uint8_t cnVar=0; // number of consecutive equal ticks for decrement
 bool EncoderState=false; // true if pulse and dir are at same level
 bool EncAntibounce=false; // antibounce in progress = interrupt disabled
 uint8_t encPush=0; // number of consecutive encoder button pushes (for setting steps)
 
-// variables used for NCO module
-#define OSCMF   1 // NCO clock is 31250Hz
-#define OSCFO   2 // NCO clock is FOSC (actually 32MHz)
+// variables used by the NCO module
 #define NCOFDC	0 // NCO mode is Fixed Duty Cycle (up to 16Mhz, fixed 50% Duty) - default
 #define NCOPFM	1 // NCO mode is Pulse Frequency mode (up to 32MHz, variable Duty in 8 steps)
 
-uint32_t NCO_IncReg=0; // value that will be loaded in NCO increment registers
-uint32_t Frequency=1000; // user-choosen frequency in Hertz
-uint32_t preFrequency=1000; // previous frequency
-uint32_t MaxFrequency=15000; // maximum allowable frequency (will vary depending selected clock)
-uint32_t MinFrequency=100;
-uint8_t  NCO_clocksource=OSCFO; // NCO clock source (start with 31250Hz)
-uint8_t  preNCO_clocksource=OSCFO; // previous clock source
-uint8_t  NCO_PulseDuty=0; // Duty cycle in pulse mode (from 0 to 7)
-uint8_t  preNCO_PulseDuty=0; // Previous Duty cycle in pulse mode (from 0 to 7)
-bool     NCO_mode=NCOFDC; // NCO actual mode
-bool     preNCO_mode=NCOFDC; // NCO previous mode
-uint32_t step_increment=1; // Hz increment per encoder step
+uint32_t  NCO_IncReg=0; // value that will be loaded in NCO increment registers
+uint32_t  Frequency=1000; // user-choosen frequency in Hertz
+uint32_t  preFrequency=1000; // previous frequency
+uint32_t  MaxFrequency=15625; // maximum allowable frequency (will vary depending selected clock)
+uint32_t  MinFrequency=1; // minumum allowable frequency
+NCO_clock NCOclock=ncoclk_mfintosc31; // NCO clock source (start with 31250Hz)
+NCO_clock preNCOclock=ncoclk_mfintosc31; // previous clock source
+NCO_mode  NCOmode=ncomode_fixed_duty; // NCO actual mode
+NCO_mode  preNCOmode=ncomode_fixed_duty; // NCO previous mode
+uint8_t   NCOPulseDuty=0; // Duty cycle in pulse mode (from 0 to 7)
+uint8_t   preNCOPulseDuty=0; // Previous Duty cycle in pulse mode (from 0 to 7)
+uint32_t  step_increment=1; // Hz increment per encoder step
+uint32_t  perioduty[7]={31,62,125,500,1000,2000,4000}; // Ton in nS depending on NCOPulseDuty value
 
 // function prototypes
 void checkEncoderButton(void);
@@ -88,24 +128,16 @@ void checkPotentiometer(void);
 void Encoder_Pulse_ISR(void);
 void Encoder_Dir_ISR(void);
 void Timer0_ISR(void);
-uint32_t NCOIncFromFreq(uint32_t fr);
-void setNCOincreg(uint32_t val);
-void setNCOPulseDuty(uint8_t val);
-void setNCOmode(bool mod);
-void setNCOclock(NCO_clock c);
 void displayOutput(void);
 void displayDefault(void);
 void checkNCOchanges(void);
+void setNCOincreg(uint32_t val);
+void setNCOPulseDuty(uint8_t val);
+void setNCOmode(NCO_mode val);
+void setNCOclock(NCO_clock cl);
+uint32_t NCOIncFromFreq(uint32_t fr); // calculate value to assign to NCO INC registers from frequency in Hz
 
-/*
- * NOTE ABOUT ADC MODULE!
- * MCC will NOT do everything for making ADC module working!!
- * from MCC go in System Module and make those following adjustements:
- * (1) if you want to use the FVR,
- * you must turn on this in the PMD0 register, FVRMD bit (turn to ENABLE(
- * (2) Enable the ADC module:
- * register PMD2, bit ADCMD (turn to enable)
- */
+
 void main(void)
     {
     // initialize the device
@@ -121,44 +153,37 @@ void main(void)
     IOCCF3_SetInterruptHandler(*Encoder_Dir_ISR);
     TMR0_SetInterruptHandler(*Timer0_ISR);
     
-    setNCOclock(ncoclk_hfintosc);
-    NCO_mode=NCOFDC; 
-    setNCOmode(NCO_mode);
-    NCO_IncReg=NCOIncFromFreq(Frequency);
-    setNCOincreg(NCO_IncReg);
-
     // LCD initialization
 	LCDInit();
     displayDefault();
         
     while (1)
         {
-        checkNCOchanges();
-		displayOutput();
-        checkEncoderButton();
-		checkSW0Button();
-        checkSW1Button();
-        checkPotentiometer();
+        checkNCOchanges();      // check for changes in NCO settings (mode, clock, frequency) and do it
+		displayOutput();        // update LCD
+        checkEncoderButton();   // check encoder button if pushed (change frequency step)
+		checkSW0Button();       // check SW0 button if pushed (change NCO clock source) - builtin button on Nano Board
+        checkSW1Button();       // check SW1 button if pushed (change NCO modality)
+        checkPotentiometer();   // read potentiometer if in Pulse Frequency mode for changing duty cycle
         }
 	} // \main
 
-// check for NCO changes from user (mode, frequency, clock source)
-// and do it
+// check for NCO changes from user (mode, frequency, clock source) and do it
 void checkNCOchanges(void)
 	{
     // NCO source clock is changed
-    if (NCO_clocksource!=preNCO_clocksource)
+    if (NCOclock!=preNCOclock)
 		{
-		if (NCO_clocksource==OSCMF)
+		if (NCOclock==ncoclk_mfintosc31)
 			{
-			setNCOclock(ncoclk_mfintosc32); // MFINTOSC (32KHz)
+			setNCOclock(ncoclk_mfintosc31); // MFINTOSC (31250Hz)
             if (encPush>3)
                 {
                 encPush=3;
                 step_increment=1000;
                 }
 			}
-		else if (NCO_clocksource==OSCFO)
+		else if (NCOclock==ncoclk_hfintosc)
 			{
 			setNCOclock(ncoclk_hfintosc); // FOSC (32MHz)
 			}
@@ -173,7 +198,7 @@ void checkNCOchanges(void)
     if (Frequency<MinFrequency) Frequency=MinFrequency;
     
 	// frequency and/or clock source are changed: recalculate NCO step_increment value
-	if ((Frequency!=preFrequency) || (NCO_clocksource!=preNCO_clocksource) || (NCO_mode != preNCO_mode))
+	if ((Frequency!=preFrequency) || (NCOclock!=preNCOclock) || (NCOmode != preNCOmode))
 		{
 		NCO_IncReg=NCOIncFromFreq(Frequency);
 		setNCOincreg(NCO_IncReg);
@@ -186,25 +211,25 @@ void checkNCOchanges(void)
             }
 		// set previous values
 		preFrequency=Frequency;
-		if (NCO_clocksource!=preNCO_clocksource)
+		if (NCOclock!=preNCOclock)
 			{
 			displayDefault();
-			preNCO_clocksource=NCO_clocksource;
+			preNCOclock=NCOclock;
 			}
 		}
     
     // NCO mode is changed (FDC/PFM)
-    if (NCO_mode != preNCO_mode)
+    if (NCOmode != preNCOmode)
         {
-        preNCO_mode=NCO_mode;
-        setNCOmode(NCO_mode);
+        preNCOmode=NCOmode;
+        setNCOmode(NCOmode);
         }
     
     // Pulse duty in PFM mode is changed
-    if (NCO_PulseDuty != preNCO_PulseDuty)
+    if (NCOPulseDuty != preNCOPulseDuty)
         {
-        preNCO_PulseDuty=NCO_PulseDuty;
-        setNCOPulseDuty(NCO_PulseDuty);
+        preNCOPulseDuty=NCOPulseDuty;
+        setNCOPulseDuty(NCOPulseDuty);
         }
     
 	}
@@ -212,11 +237,41 @@ void checkNCOchanges(void)
 // check potentiometer if in Pulse Frequency mode, for setting the duty cycle
 void checkPotentiometer(void)
     {
-    if (NCO_mode==NCOFDC) return; // exit if no in Pulse mode
-    uint16_t r = ADC_GetConversion(channel_ANA0);
+    if (NCOmode==ncomode_fixed_duty) return; // exit if no in Pulse mode
+    uint16_t r = ADC_GetConversion(channel_ANA0); // read potentiometer from AN0/RA0
     // report 0-1023 from ADC to 0-7 for the NCO1CLK N1PWS bits
-    NCO_PulseDuty = r>>7;
+    NCOPulseDuty = r>>7;
+    // check if the value obtained is suitable for the actual frequency:
+    // HIGH state will last for (period of clock cycle * 2^Pulse duty value)
+    // LOW state will last for (period of desidered frequency) - previous value
+    // so for 32MHz we have:
+    // NCOPulseDuty         Time on (TON)
+    //      0               1 cycle  = 31.25nS
+    //      1               2 cycles = 62.5ns
+    //      2               4 cycles = 125nS
+    //      3               8 cycles = 250nS
+    //      4              16 cycles = 500nS
+    //      5              32 cycles = 1000nS
+    //      6              64 cycles = 2000nS
+    //      8             128 cycles = 4000nS
+    // so TON+TOFF = period (of actually choosen frequency)
+    // TOFF = period-TON => this implies TON<period
+    // so we must calculate conditions where:
+    // TON < (1/Frequency)
+    uint32_t period = (1/(Frequency/1000000))*1000; // actual period in nS
+    uint8_t i=0;
+    // scan for searching max allowable duty (TON) for this frequency
+    while (i<8)
+        {
+        if (perioduty[i]>period) break; // last good value was i-1 if i>0
+        i++;
+        }
+    // if the actual value is greater than the maximum allowable
+    // report it to the maximum allowable
+    if (i>0) i--;
+    if (NCOPulseDuty>(i)) NCOPulseDuty=i; 
     }
+
 // Print display default values
 void displayDefault(void)
 	{
@@ -241,13 +296,13 @@ void displayOutput(void)
     
     // Print NCO Clock Source
 	LCDGoto(1,15);
-	if (NCO_clocksource==OSCMF)
+	if (NCOclock==ncoclk_mfintosc31)
         {
-        LCDPuts("LO"); // MFINTOSC 32kHz
+        LCDPuts("LO");
         }
-    else if (NCO_clocksource==OSCFO)
+    else if (NCOclock==ncoclk_hfintosc)
         {
-        LCDPuts("HI"); // HFINTOSC 32MHz
+        LCDPuts("HI");
         }	
     
     // Second row
@@ -272,24 +327,24 @@ void displayOutput(void)
 	
 	// Print NCO mode
     LCDGoto(2,15);
-	if (NCO_mode==NCOFDC)
+	if (NCOmode==ncomode_fixed_duty)
         {
         LCDPuts("FD");
         }
-    else if (NCO_mode==NCOPFM)
+    else if (NCOmode==ncomode_pulse_frequency)
         {
         LCDPuts("PF");
         }	
 
     // Print Duty Cycle value if in Pulse Mode
     LCDGoto(2,13);
-    if (NCO_mode==NCOFDC) // fixed frequency, do duty
+    if (NCOmode==ncomode_fixed_duty) // no duty
         {
         LCDPuts(" ");
         }
     else
         {
-        LCDPutun(NCO_PulseDuty);
+        LCDPutun(NCOPulseDuty);
         }
 	}
 
@@ -302,7 +357,7 @@ void checkEncoderButton(void)
         if (!ENC_BUT_GetValue())
            {
             encPush++;
-            if (NCO_clocksource==OSCFO)
+            if ((NCOclock==ncoclk_hfintosc) || (NCOclock==ncoclk_fosc))
 				{
 				if (encPush>6) encPush=0;
 				}
@@ -331,10 +386,13 @@ void checkSW0Button(void)
         __delay_ms(80); // antibounce
         if (!SW0_GetValue())
 			{
-            NCO_clocksource++;
-            if(NCO_clocksource>OSCFO)
+            if((NCOclock==ncoclk_hfintosc) || (NCOclock==ncoclk_fosc))
 				{
-                NCO_clocksource=1;
+                NCOclock=ncoclk_mfintosc31;
+                }
+            else if (NCOclock==ncoclk_mfintosc31)
+                {
+                NCOclock=ncoclk_hfintosc;
                 }
 			// stuck until button released
 			while (!SW0_GetValue()) {continue;}
@@ -350,16 +408,18 @@ void checkSW1Button(void)
         __delay_ms(80); // antibounce
         if (!SW1_GetValue())
 			{
-            NCO_mode=!NCO_mode; // toggle NCO mode
+            // toggle NCO mode
+            // I can do this way since NCOmode is only 0 or 1
+            NCOmode=!NCOmode;
 			// stuck until button released
 			while (!SW1_GetValue()) {continue;}
 			}
 		}
 	}
 
-void setNCOclock(NCO_clock c)
+void setNCOclock(NCO_clock cl)
     {
-    NCO1CLKbits.N1CKS=c;
+    NCO1CLKbits.N1CKS=cl;
     }
 /* calculate value to be loaded in NCO INC registers
  * based on passed frequency and actual oscillator used
@@ -381,44 +441,48 @@ void setNCOclock(NCO_clock c)
  * Maximum frequency value=((31250*((2^20)-1)/(2^20))/2
  * = (31250*1048575/1048576)/2=15624Hz
  *
- * using FOSC at 32000000Hz (FDC) we have:
+ * using FOSC or HFINTOSC at 32000000Hz (FDC) we have:
  * inc_register=freq*0,065536
  * Maximum frequency value=((32000000*((2^20)-1)/(2^20))/2
  * = (32000000*1048575/1048576)/2=15999984Hz
  * 
- * 
+ * Maximum frequencies are doubled if in Pulse Frequency mode 
  */
 uint32_t NCOIncFromFreq(uint32_t fr)
     {
-    float in=0;
-    if (NCO_clocksource==OSCMF)
+    float increg=0; 
+    if (NCOclock==ncoclk_mfintosc31) // 31250Hz
         {
-        in=(float)fr*67.109F;
-        MaxFrequency=15624UL;
+        increg=(float)fr*67.109F;
+        MaxFrequency=15625UL;
         MinFrequency=1;
         }
-    else if (NCO_clocksource==OSCFO)
+    else if (NCOclock==ncoclk_hfintosc) // supposed 32MHz
         {
-        in=(float)fr*0.065536F;
-        MaxFrequency=15999984UL;
-        MinFrequency=100; // experienced bad behaviour of HFINTOSC under 100Hz
+        increg=(float)fr*0.065536F;
+        MaxFrequency=15999985UL;
+        MinFrequency=15625; // upper limit of mfintosc31
         }
 	
     // in Pulse Frequency mode we must not use the division by 2
     // in calculations, so the step_increment, already calculated, must be multiplied by 2
-    if (NCO_mode==NCOPFM)
+    if (NCOmode==ncomode_pulse_frequency)
        {
-       in/=2;
-       if (NCO_clocksource==OSCMF)
+       increg/=2;
+       if (NCOclock==ncoclk_mfintosc31)
         {
         MaxFrequency=31250; 
         }
-       else if (NCO_clocksource==OSCFO)
-        {
-        MaxFrequency=31999969;   
-        }
+       // unfortunately, as I written in notes above,
+       // oscilloscope gives nothing if frequency is set above FOSC/2
+       // so this part is totally unuseful since you can't obtain
+       // more than 16Mhz
+       //else if (NCOclock==ncoclk_hfintosc) // supposed 32MHz
+       // {
+       // MaxFrequency=31999969;   
+       // }
        }
-    return (uint32_t)in;
+    return (uint32_t)increg;
     }
 
 /* NCO module will produce a frequency based on value given
@@ -430,22 +494,25 @@ uint32_t NCOIncFromFreq(uint32_t fr)
  */
 void setNCOincreg(uint32_t val)
     {
-    NCO1INCU=(uint8_t)(val>>16);
-	NCO1INCH=(uint8_t)(val>>8);
-	NCO1INCL=(uint8_t)val;
+    NCO1INCU = (uint8_t)(val>>16);
+	NCO1INCH = (uint8_t)(val>>8);
+	NCO1INCL = (uint8_t)val;
+    NCO1ACCU = 0;
+    NCO1ACCH = 0;
+    NCO1ACCL = 0;
     }
 
 // sets the NCO mode (Fixed Duty Cycle or Pulse Frequency Mode)
-void setNCOmode(bool mod)
+void setNCOmode(NCO_mode mod)
     {
-    NCO1CONbits.N1PFM=mod; //0=FDC, 1=PFM
-    NCO_mode=mod;
+    NCO1CONbits.N1PFM = mod; //0=FDC, 1=PFM
+    NCOmode = mod;
     }
 
 // sets the duty cycle when in PFMmode
 void setNCOPulseDuty(uint8_t val)
     {
-    if (NCO_mode==NCOFDC) return;
+    if (NCOmode==ncomode_fixed_duty) return;
     if (val>7) val=7;
     NCO1CLKbits.N1PWS=val;
     }
@@ -482,7 +549,6 @@ void Encoder_Pulse_ISR(void)
             if (cpVar==CCOUNT)
                 {
                 Frequency+=step_increment;
-                if (Frequency>MaxFrequency) Frequency=MaxFrequency;
                 cpVar=0;
                 }
             }
@@ -553,7 +619,6 @@ void Encoder_Dir_ISR(void)
             if (cpVar==CCOUNT)
                 {
                 Frequency+=step_increment;
-                if (Frequency>MaxFrequency) Frequency=MaxFrequency;
                 cpVar=0;
                 }
 			}

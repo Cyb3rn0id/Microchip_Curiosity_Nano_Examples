@@ -77,7 +77,7 @@
 #pragma config WRTB = OFF    // ->Boot Block not write protected
 #pragma config WRTC = OFF    // ->Configuration Register not write protected
 #pragma config WRTSAF = OFF    // ->SAF not write protected
-#pragma config LVP = ON    // Low Voltage Programming Enable bit->Low Voltage programming enabled. MCLR/Vpp pin function is MCLR.
+#pragma config LVP = OFF    // Low Voltage Programming Enable bit->High Voltage on MCLR/Vpp must be used for programming
 
 // CONFIG5
 #pragma config CP = OFF    // UserNVM Program memory code protection bit->UserNVM code protection disabled

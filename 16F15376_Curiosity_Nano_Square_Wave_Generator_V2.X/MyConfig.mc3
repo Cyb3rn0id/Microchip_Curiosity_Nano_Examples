@@ -1,12 +1,12 @@
 <config configVersion="1.1" device="PIC16F15376" coreVersion="4.75">
    <usedClasses class="java.util.HashMap">
       <entry>
-         <string>ADC</string>
-         <string>class com.microchip.mcc.mcu8.modules.adc.ADC</string>
-      </entry>
-      <entry>
          <string>TMR0</string>
          <string>class com.microchip.mcc.mcu8.modules.tmr0_mid0.TMR0</string>
+      </entry>
+      <entry>
+         <string>ADC</string>
+         <string>class com.microchip.mcc.mcu8.modules.adc.ADC</string>
       </entry>
       <entry>
          <string>System Module</string>
@@ -1227,7 +1227,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="NCO1" name="AccOutFreq"/>
-         <value>0.998377799987793</value>
+         <value>1000.0020265579224</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="ANSELB" settingAlias="ANSB7"/>
@@ -1659,7 +1659,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="NCO1" registerAlias="NCOCLK"/>
-         <value>4</value>
+         <value>68</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="ANSELE" settingAlias="ANSE1"/>
@@ -3202,12 +3202,12 @@
          <value>1</value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TMR0" registerAlias="T0CON1" settingAlias="T0CS" alias="T0CKI_PIN"/>
-         <value>0</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="NCO1" registerAlias="NCOCLK" settingAlias="NPWS" alias="128_clk"/>
          <value>7</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="TMR0" registerAlias="T0CON1" settingAlias="T0CS" alias="T0CKI_PIN"/>
+         <value>0</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="System Module" registerAlias="CONFIG1" settingAlias="RSTOSC" alias="Reserved"/>
@@ -4135,7 +4135,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="NCO1" name="NcoIncValue"/>
-         <value>67</value>
+         <value>67109</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="ANSELA"/>
@@ -4407,7 +4407,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="NCO1" registerAlias="NCOCLK" settingAlias="NPWS"/>
-         <value>1_clk</value>
+         <value>4_clk</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="IOCBN" settingAlias="IOCBN0"/>
@@ -4766,12 +4766,12 @@
          <value>disabled</value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ADC" name="ANB3"/>
-         <value>disabled</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="NCO1" registerAlias="NCOCLK" settingAlias="NCKS" alias="SOSC"/>
          <value>5</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ADC" name="ANB3"/>
+         <value>disabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ADC" name="ANB2"/>
@@ -5019,7 +5019,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="NCO1" name="Ton"/>
-         <value>0.500812418</value>
+         <value>0.000499999</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="ANSELD" settingAlias="ANSD1"/>
@@ -5111,7 +5111,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="NCO1" name="Toff"/>
-         <value>0.500812418</value>
+         <value>0.000499999</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Interrupt Module" name="BASE_ADDRESS"/>
@@ -5171,7 +5171,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="NCO1" name="OutputFreq"/>
-         <value>1</value>
+         <value>1000</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="ADC" registerAlias="ADCON1" settingAlias="ADFM" alias="right"/>
@@ -5432,6 +5432,10 @@
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="INTERNAL OSCILLATOR" registerAlias="OSCEN" settingAlias="MFOEN" alias="enabled"/>
          <value>1</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="NCO1" name="clkrefAdded"/>
+         <value>false</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="INTERNAL OSCILLATOR" registerAlias="OSCEN" settingAlias="SOSCEN" alias="enabled"/>
@@ -5963,7 +5967,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="NCO1" registerAlias="NCOINCH"/>
-         <value>0</value>
+         <value>6</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="Pin Module" registerAlias="TRISA" settingAlias="TRISA7" alias="input"/>
@@ -6155,7 +6159,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="NCO1" registerAlias="NCOINCL"/>
-         <value>67</value>
+         <value>37</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="Custom Name RD4"/>
@@ -6291,7 +6295,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="System Module" registerAlias="CONFIG4" settingAlias="LVP"/>
-         <value>ON</value>
+         <value>OFF</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="Pin Module" registerAlias="IOCBF" settingAlias="IOCBF2" alias="enabled"/>
@@ -6915,7 +6919,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="NCO1" registerAlias="NCOINCU"/>
-         <value>0</value>
+         <value>1</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="Pin Module" registerAlias="IOCBF" settingAlias="IOCBF5" alias="enabled"/>
@@ -7467,7 +7471,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="INTERNAL OSCILLATOR" name="ExternalClock"/>
-         <value>1000000</value>
+         <value>8000000</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="SLRCOND"/>
@@ -7675,7 +7679,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="NCO1" name="AccFreq"/>
-         <value>1.996755599975586</value>
+         <value>2000.0040531158447</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="Pin Module" registerAlias="IOCEN" settingAlias="IOCEN3" alias="enabled"/>
@@ -8055,7 +8059,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="System Module" registerAlias="CONFIG4"/>
-         <value>11167</value>
+         <value>2975</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.OptionKey" moduleName="Pin Module" registerAlias="IOCEP" settingAlias="IOCEP2" alias="disabled"/>
@@ -8225,7 +8229,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>a6c4bb0b820cf97dd00c67af760d12c388e4de8ffa04c43b742d59090d564c0e</hash>
+         <hash>59e077f029b77648c635e7878dc92ca893bd3c36aba3c09cc442dc160e95888f</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\device_config.h</file>
@@ -8233,7 +8237,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\nco1.c</file>
-         <hash>071cca9600536b10db3c010803ef62eb661ff589686cfb3f6eac1e8b830ed593</hash>
+         <hash>2d159e7a120113f938cbf73dbbeaef5c2103b30f02bd610fe0c64c4b7391f553</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\tmr0.h</file>
@@ -8245,7 +8249,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\device_config.c</file>
-         <hash>711b53412c5499d99ccbb90087ac233c4a1ff0b463757bd33f7183cd99fc0c9f</hash>
+         <hash>2f62af45f441b354eda93d0ba5ec9ec2b38de6350c9571b73252db4071d3c4e1</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.h</file>
@@ -8277,7 +8281,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.c</file>
-         <hash>ddc1b3138f38bd1fa602ae5e07d15b21c64872fb7ce76901fcabae2058cdab87</hash>
+         <hash>07aa0b6b4c1226dcfc69d07dd0dc561f94d61af052cc58a8dd1b74b19f57ab6a</hash>
       </entry>
    </generatedFileHashHistoryMap>
    <mc3libFileHashHistoryMap class="java.util.HashMap"/>
