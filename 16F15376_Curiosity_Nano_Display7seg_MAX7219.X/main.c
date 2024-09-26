@@ -30,6 +30,22 @@
 #include "mcc_generated_files/mcc.h"
 #include "MAX7219sz.h"
 
+/*
+ * MAX7219 GPIO names are defined from the PIN Manager!
+ * You must name 3 pins as MAX_DAT, MAX_CLK and MAX_LAT
+ * actually
+ * MAX_DAT => RC0
+ * MAX_CLK => RC1
+ * MAX_LAT => RC3
+ * 
+ * RC2 is used by SW0 on the PIC16F15376 Curiosity Nano
+ *  
+ * NOTE:
+ * I updated the example but using a bare PIC16F15376 instead
+ * of the curiosity nano: go on the project properties and in the
+ * Config(default) choose your device (Curiosity Nano or PICkitX) from
+ * "Connected Hardware Tool"
+ */
 void main(void)
     {
     // initialize the device
