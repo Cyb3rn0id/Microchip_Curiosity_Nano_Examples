@@ -10,4 +10,4 @@
 ![PIC16F15376 Curiosity Nano Pinout](16F15376/pinout_PIC16F15376_Curiosity_Nano.png)
 
 ### PIC18F57Q43 Curiosity Nano
-![PIC18F57Q43 Curiosity Nano Pinout](PIC18F57Q43/pinout_PIC18F57Q43_Curiosity_Nano.png)
+![PIC18F57Q43 Curiosity Nano Pinout](18F57Q43/pinout_PIC18F57Q43_Curiosity_Nano.png)
