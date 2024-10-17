@@ -8,6 +8,8 @@
 - The onboard witch, SW0, is connected on the same IO used as debug pin, so pay attention when you use this switch but you want also to use this debug feature
 - The Timer0 interrupt is actually set to fire every 4uS: even if from the Timer0 Hardware settings is possible to go under to 15.625x10^-9 seconds (15.626nS), in the reality I can't go uder 4uS: even if I put 1uS, interrupt fires every 4uS...  
 
+I posted this question on the [Microchip Forum](https://forum.microchip.com/s/topic/a5CV40000002KYvMAM/t398385)
+
 ![Timer0 Settings](../assets/images/18F57Q43_blink_TImer0_Settings.png)
 
 ### Settings:
