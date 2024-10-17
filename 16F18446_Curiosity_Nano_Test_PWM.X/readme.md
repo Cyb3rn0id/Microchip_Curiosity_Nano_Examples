@@ -27,6 +27,6 @@ Other settings:
 - System clock: 32MHz
 
 Oscilloscope image:  
-![Oscilloscope image - 1MHz on RA5, FOSC/4 on RA4](../assets/PIC16F18446_PWM_example.jpg)  
+![Oscilloscope image - 1MHz on RA5, FOSC/4 on RA4](../assets/images/PIC16F18446_PWM_example.jpg)  
 Yellow signal: 1MHz square wave (50%) out from RA5. Frequency is changed by editing Timer Period/Pre+Post scaler and/or System Clock  
 Blue signal: FOSC/4 (8MHz) out from RA4. I've put this only for reference: having the FOSC/4 output is always good as test to be sure you've correctly configured the system clock

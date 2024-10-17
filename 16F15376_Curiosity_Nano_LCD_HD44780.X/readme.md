@@ -23,4 +23,4 @@ Please note: DATA and RS must be on the same port bank! In the example are conne
 |D4 to D7 |RD4 to RD7                      |
 
 ### Display Pinout
-![LCD Pinout](../assets/LCD_HD44780_Pinout.png)
+![LCD Pinout](../assets/images/LCD_HD44780_Pinout.png)

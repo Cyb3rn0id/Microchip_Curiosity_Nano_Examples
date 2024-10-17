@@ -23,6 +23,9 @@
 ### Schematic
 ![Schematic](documents/schematic.png)
 
+### Documents 
+In the [documents folder](documents/) in this same folder, there is the schematic in Eagle format
+
 ### Link
 [I2C EEprom usage from MPLAB X](https://www.settorezero.com/wordpress/utilizzare-le-eeprom-i2c-da-un-microcontrollore-pic-con-mplab-x/).
 Article is in italian language but there is an automatic translation plugin that will translate the page in your language without your intervention.

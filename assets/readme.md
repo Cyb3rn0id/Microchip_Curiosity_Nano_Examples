@@ -1,7 +1,14 @@
-Manuals, datasheets and other documents of board used.  
-For more updated versions, please visit Microchip Website:  
-- [PIC16F18446 Curiosity Nano](https://www.microchip.com/Developmenttools/ProductDetails/DM164144)
-- [PIC16F15376 Curiosity Nano](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM164148)
+In this folders there are Manuals, datasheets and other documents of nano board I used.  
+  
+For more updated versions of documents, please visit Microchip Website:  
+- [PIC16F18446 Curiosity Nano - DM164144](https://www.microchip.com/en-us/development-tool/DM164144)
+- [PIC16F15376 Curiosity Nano - DM164148](https://www.microchip.com/en-us/development-tool/DM164148)
+- [PIC18F57Q43 Curiosity Nano - DM164150](https://www.microchip.com/en-us/development-tool/dm164150)
+
+Never forget to read the specific microcontroller datasheets and erratas too!!
+- [PIC16F18446 Product Page](https://www.microchip.com/en-us/product/PIC16F18446)
+- [PIC16F15376 Product Page](https://www.microchip.com/en-us/product/PIC16F15376)
+- [PIC18F57Q43 Product Page](https://www.microchip.com/en-us/product/PIC18F57Q43)
   
 Note:  
 _MPLAB Xpress PIC16F18446_ was the old name for the actual _PIC16F18446 Curiosity Nano_"_: debugger pinout is different!!!  

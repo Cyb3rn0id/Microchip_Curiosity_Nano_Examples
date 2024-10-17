@@ -29,4 +29,4 @@ Other settings:
 - System clock: 16MHz
 
 Oscilloscope image:  
-![Oscilloscope image - 1MHz on RD0](../assets/PIC16F15376_NCO_example.jpg) 
+![Oscilloscope image - 1MHz on RD0](../assets/images/PIC16F15376_NCO_example.jpg) 

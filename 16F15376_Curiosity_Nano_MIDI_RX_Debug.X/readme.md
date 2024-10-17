@@ -38,4 +38,4 @@
 - System clock: 16MHz
 
 Example output on a Serial terminal:  
-![Serial terminal](../assets/MIDI_Receive_Demo.jpg)
+![Serial terminal](../assets/images/MIDI_Receive_Demo.jpg)

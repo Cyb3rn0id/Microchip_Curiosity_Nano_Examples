@@ -33,4 +33,4 @@ Please note: if you want to change connections remember that LCD DATA and LCD RS
 [![Menu with encoder Demo](https://img.youtube.com/vi/mWQ9CHzGuuE/maxresdefault.jpg)](https://www.youtube.com/watch?v=mWQ9CHzGuuE)  
 
 ### Display Pinout
-![LCD Pinout](../assets/LCD_HD44780_Pinout.png)
+![LCD Pinout](../assets/images/LCD_HD44780_Pinout.png)

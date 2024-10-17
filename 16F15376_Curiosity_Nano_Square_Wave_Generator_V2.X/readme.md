@@ -43,7 +43,7 @@ Please note: LCD DATA and RS must be on the same port bank! In the example are c
 |NCO OUTPUT    |RD2                             |
 
 ### Display Pinout
-![LCD Pinout](../assets/LCD_HD44780_Pinout.png)
+![LCD Pinout](../assets/images/LCD_HD44780_Pinout.png)
 
 ### Schematic
 ...to do...
