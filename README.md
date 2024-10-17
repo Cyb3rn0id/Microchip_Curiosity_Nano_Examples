@@ -1,11 +1,15 @@
 # Microchip Curiosity Nano Examples   
 
-My experiments, snippets and documents about some [Microchip Curiosity Nano](https://www.microchip.com/design-centers/8-bit/development-tools/pic-hardware/curiosity-nano-development-platform) boards I use for my projects or for learning. Actually there are examples for following Nano Boards:
+My experiments, snippets and documents about some [Microchip Curiosity Nano](https://www.microchip.com/design-centers/8-bit/development-tools/pic-hardware/curiosity-nano-development-platform) boards I use for my projects or for learning. Actually there are examples for following Nano Boards:  
+
 - 16F18446 (*)
 - 16F15376
 - 18F57Q43
 
-_(*) For my experiments I used the old "MPLAB Xpress PIC16F18446" now that board is called "PIC16F18446 Curiosity Nano" : debugger pinout is different!!!_  
+_(*) For my experiments I used the old "MPLAB Xpress PIC16F18446 Evaluation Board" now that board is called "PIC16F18446 Curiosity Nano" : debugger pinout is different!!!_  
+
+For Datasheets and Documents, please take a look in the [assets](./assets) folder.  
+I've put all boards pinout in the [pinouts](./assets/pinouts.md) document.  
  
 ### Powering Curiosity Nano 
 #### Running at 5 or 3.3V 
@@ -27,7 +31,7 @@ If you want to power the board from the external instead of USB, you must tie to
 
 ![Curiosity Nano Debugger Pinout](assets/images/curiosity_nano_standard_debugger_pinout.png)   
 
-**WARNING**: if you use the old PIC16F18446 revision (Called _MPLAB Xpress PIC16F18446_) there is no `VOFF` pin (notice that the debug header has fewer pins) and you must cut some traces below the board for powering from external, please refer to old documents in the [assets](./assets) folder
+**WARNING**: if you use the old PIC16F18446 revision (Called _MPLAB Xpress PIC16F18446 Evaluation Board_) there is no `VOFF` pin (notice that this debug header has fewer pins!) and you must cut some traces below the board for powering from external, please refer to old documents in the [assets](./assets) folder and to the [pinouts](./assets/pinouts.md) document.
 
 ### Usage of certain pins  
 Following infos are for the PIC16F15376 Curiosity Nano.  
