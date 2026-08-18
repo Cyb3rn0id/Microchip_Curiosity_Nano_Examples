@@ -1,4 +1,4 @@
-# Microchip Curiosity Nano Examples   
+# Microchip Curiosity Nano Examples
 
 My experiments, snippets and documents about some [Microchip Curiosity Nano](https://www.microchip.com/design-centers/8-bit/development-tools/pic-hardware/curiosity-nano-development-platform) boards I use for my projects or for learning. Actually there are examples for following Nano Boards:  
 
@@ -10,9 +10,17 @@ _(*) For my experiments I used the old "MPLAB Xpress PIC16F18446 Evaluation Boar
 
 For Datasheets and Documents, please take a look in the [assets](./assets) folder.  
 I've put all boards pinout in the [pinouts](./assets/pinouts.md) document.  
- 
-### Powering Curiosity Nano 
-#### Running at 5 or 3.3V 
+
+### Errors due to different tools version usage
+
+Examples were created lot of years ago so if you use different MPLABX IDE and plugins (like Code Configurator) different than ones I used at time, surely some errors will show: this is often due to different folder organizations or different names: please read errors and change paths/names according new nomenclature. 
+
+I actually adjusted the LCD library for using latest tools available at August 2026. You can find the updated LCD library (hd44780sz ver. 1.1) in the [updated_libraries](./updated_libraries) folder.
+
+### Powering Curiosity Nano
+
+#### Running at 5 or 3.3V
+
 By default Curiosity nano runs at 3.3V when powered from USB: there is a software controlled variable regulator on board that generates the VTG (_V Target_). If you want to run the board @5V when you power it from USB you must change a parameter in the project configuration:  
 
 - Right click on project in <kbd>Projects</kbd> tree and select <kbd>Properties</kbd>
@@ -26,15 +34,18 @@ The project property will be changed and will be active the next time you'll pro
 
 ![VTG modification](assets/images/changing_Vtarget.png)  
 
-#### Powering from external 
+#### Powering from external
+
 If you want to power the board from the external instead of USB, you must tie to GND the pin `VOFF`: it's the second pin on the right, starting from top, having the USB connector on top: this will disable the on board regulator. After you've tied `VOFF` to GND you can power the board on the pin `VTG`: it's the sixth pin on the right, starting from top, having the USB connector on top. The voltage you apply will not be affected by the modification explained above. 5V is the maximum allowed.   
 
 ![Curiosity Nano Debugger Pinout](assets/images/curiosity_nano_standard_debugger_pinout.png)   
 
 **WARNING**: if you use the old PIC16F18446 revision (Called _MPLAB Xpress PIC16F18446 Evaluation Board_) there is no `VOFF` pin (notice that this debug header has fewer pins!) and you must cut some traces below the board for powering from external, please refer to old documents in the [assets](./assets) folder and to the [pinouts](./assets/pinouts.md) document.
 
-### Usage of certain pins  
+### Usage of certain pins
+
 Following infos are for the PIC16F15376 Curiosity Nano.  
+
 - `RCO` and `RC1`: Normally, those pins are not routed from edge connector to PIC MCU, so if you would to use them, put a solder blob on pads on the bottom of the board marked as `RC0` - `RC1`. They're not connected since you can choose to use them for the Secondary Oscillator (`SOSC`) soldering a 32768Hz Crystal on top.
 - `RB6` and `RB7`: Those pins are not shown on the silkscreen. They are used by the debugger (`DBG1/ICSPCLK` and `DBG0/ICSPDAT respectively`), maybe is safe to use if you disconnect them first than programming
 - `RD0` and `RD1`: are shared with USB CDC and used by debugger, they appears on the silkscreen. `EUSART2` can use those pins, so if you want to redirect serial communication over USB configure the EUSART2 for using `UART TX` on `RD0` and `UART RX` on `RD1`.
@@ -43,6 +54,7 @@ Following infos are for the PIC16F15376 Curiosity Nano.
 - `RE3`: this pin is shared with `MCLR` and is connected with `DBG3` debugger pin. `RE3` marking does not appear on silkscreen
 
 ### Links
+
 - My Simple (italian) [tutorial about Curiosity Nano and MPLAB Code Configurator](https://www.settorezero.com/wordpress/curiosity-nano-code-configurator-per-entrare-nel-mondo-dei-microcontrollori-pic-senza-sforzo-e-in-economia/)
 - All my [articles about PIC MCU programming](https://www.settorezero.com/wordpress/programmazione_microcontrollori_pic_microchip/)
 - [Microchip Curiosity Nano Portfolio](https://www.microchip.com/design-centers/8-bit/development-tools/pic-hardware/curiosity-nano-development-platform)
