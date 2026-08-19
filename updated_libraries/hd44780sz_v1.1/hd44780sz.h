@@ -85,8 +85,6 @@
 // comment if lcd backlight is hardwired
 //#define LCD_BACKLIGHT
 
-
-
 // data connections between LCD and Picmicro
 // NOTE: Data and RS must be on the same port!
 #define	LCD_RS	_LCD_RS_PORT_LAT // Register select

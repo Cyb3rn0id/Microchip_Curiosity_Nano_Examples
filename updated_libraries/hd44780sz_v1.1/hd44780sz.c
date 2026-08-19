@@ -305,13 +305,19 @@ void _LCDCommand (uint8_t cmd)
     {
     LCD_RS=0;
     _LCDSendByte(cmd);
+#ifdef BUSY_BYPASS
+    if ((cmd == LCD_CLEAR) || (cmd == LCD_HOME))
+        {
+        __delay_ms(2); // Clear/Home often requires more time
+        }
+#endif
     } // _LCDCommand
 
 // return the busy flag
 uint8_t _LCDIsBusy(void)
     {
 #ifdef BUSY_BYPASS
-    __delay_us(600);
+    __delay_us(100);
     return false;
 #else
     static uint8_t busyFlag;
